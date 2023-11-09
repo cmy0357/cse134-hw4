@@ -69,7 +69,7 @@ i {
   background-color: color(xyz 40 20 0);
 }
 
-em {
+em, strong {
   text-decoration: burlywood wavy underline;
 }
 
