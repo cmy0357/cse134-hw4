@@ -1,6 +1,111 @@
 /* main.css */
+@import url(vars.css);
+@import url(fonts.css);
 
-html,
+body {
+	background-color : var(--background-color);
+	color : var(--text-color);
+	font-size : var(--body-size);
+  font-family: myFont;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+#top {
+  background-color: var(--header-color);
+}
+
+#top a {
+  color: white;
+  text-decoration-line: none;
+}
+
+#menu {
+	flex-grow:1;
+	text-align:left;
+}
+
+#menu li {
+	list-style:none;
+	display:inline;
+	margin-right:1.5rem;
+}
+
+#menu li a {
+	display:inline-block;
+	font-size:1.5rem;
+}
+
+h1 {
+	font-size: 3rem;
+	transform-origin:center left;
+}
+
+h2 {
+  font-size: 2.5rem;
+  background-color: var(--h2-color);
+}
+
+h3 {
+  font-size: 1.75rem;
+  background-color: var(--h3-color);
+}
+
+b {
+  font-size: 2rem;
+}
+
+i {
+  text-decoration: cadetblue underline dotted;
+}
+
+em {
+  text-decoration: burlywood wavy underline;
+}
+
+/* grid in aboutMe */
+#aboutMe .parent {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+  #aboutMe .div1 { grid-area: 1 / 2 / 6 / 3; }
+  #aboutMe .div2 { grid-area: 1 / 3 / 6 / 4; }
+
+/* grid in portfolio */
+#portfolio .parent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  }
+  #portfolio .div1 { grid-area: 1 / 1 / 2 / 2; }
+  #portfolio .div2 { grid-area: 1 / 2 / 2 / 4; }
+  #portfolio .div3 { grid-area: 2 / 1 / 3 / 3; }
+  #portfolio .div4 { grid-area: 2 / 3 / 3 / 4; }
+
+/* grid in skills */
+#skills .parent, #contact .parent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  }
+  #skills .div1, #contact .div1 { grid-area: 1 / 1 / 2 / 2; }
+  #skills .div2, #contact .div1 { grid-area: 1 / 2 / 2 / 3; }
+
+
+/*
+html {
+  font-size: 18px;
+}
 body {
   background-color: lightblue;
 }
@@ -23,7 +128,7 @@ body {
   src: url("../fonts/Literata/static/Literata-Italic.ttf") format("truetype");
 }
 
-/****** header ******/
+
 header {
   background-image: url("../images/bg_homepage.jpg");
   background-color: #fcfcdc;
@@ -37,7 +142,7 @@ header hr {
   width: 30%;
 }
 
-/****** main content ******/
+
 img{
   margin: 10px;
 }
@@ -67,8 +172,8 @@ a:hover { color: gray; }
 a:active { background-color: yellow; border: 4px solid red;}
 
 
-/****** footer ******/
+
 footer {
   font-size: small;
   text-align: center;
-}
+} */
