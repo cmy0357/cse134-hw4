@@ -119,17 +119,15 @@ footer {
   text-align: center;
 }
 
-#skipToContent {
+a.skipToMain {
   position: absolute;
-  left: -9999px;
-  z-index: 999;
-  padding: 1em;
+  left: -999px;
+}
+
+a.skipToMain:focus {
   background-color: black;
   color: white;
-  opacity: 0;
-}
-#skipToContent:focus {
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 1;
+  left: auto;
+  top: auto;
+  z-index: 999;
 }
