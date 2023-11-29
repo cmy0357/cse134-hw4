@@ -118,23 +118,25 @@ int main() {
 
 		<section id="contact">
 			<h2>Contact</h2>
-			<div class="parent">
-				<div class="div1">
-					<h3>Contact Info</h3>
-					<ul>
-						<li>Phone: (123)456-7890</li>
-						<li>Email: mic015@ucsd.edu</li>
-					</ul>
-				</div>
+			<span id="contact1">
+				<div class="parent">
+					<div class="div1">
+						<h3>Contact Info</h3>
+						<ul>
+							<li>Phone: (123)456-7890</li>
+							<li>Email: mic015@ucsd.edu</li>
+						</ul>
+					</div>
 
-				<div class="div2">
-					<h3>Related Links</h3>
-					<ul>
-						<li><a href="https://ucsd.edu/">UCSD</a></li>
-						<li><a href="https://cse.ucsd.edu">CSE Department</a></li>
-					</ul>
+					<div class="div2">
+						<h3>Related Links</h3>
+						<ul>
+							<li><a href="https://ucsd.edu/">UCSD</a></li>
+							<li><a href="https://cse.ucsd.edu">CSE Department</a></li>
+						</ul>
+					</div>
 				</div>
-			</div>
+			</span>
 
 			<h3>Additional information</h3>
 
@@ -169,50 +171,132 @@ int main() {
 				</fieldset>
 			</form>
 
-			<form action="https://httpbin.org/post" method="post">
-				<textarea name="Comments" cols="80" rows="5">Please leave any comments here ...</textarea>
-				<button type="submit">Submit</button>
+			<form action="https://httpbin.org/post" method="post" id="forms" novalidate>
+				<fieldset>
+					<legend>Contact Form</legend>
+					<div class="parent">
+						<div class="div1">
+							<label for="name">Name:</label>
+							<input type="text" name="name" id="name" required/>
+						</div>
+
+						<div class="div2">
+							<label for="email">Email:</label>
+							<input type="email" name="email" id="email" required/>
+						</div>
+
+						<input type="hidden" name="possible_bot" id="possible_bot" value="true"/>
+
+						<div class="div3">
+							<label for="comments">Comments:</label>
+							<br/>
+                    		<textarea name="comments" id="comments" required maxlength="100" 
+								style="width: 15rem; height: 3.5rem;"></textarea>
+						</div>
+
+						<input type="hidden" name="form_errors" id="form_errors"/>
+
+						<div class="div4">
+							<output name="error-message-if-any" id="error-message-if-any"></output>
+							<output name="info-message-if-any" id="info-message-if-any"></output>
+							<br/>
+							<button type="submit">Submit</button>
+						</div>
+					</div>
+				</fieldset>
 			</form>
 
-			<p>AND AGAIN...</p>
+			<script type="module">
 
-			<table>
-				<caption>Here's a random table</caption>
-				<colgroup>
-					<col style="background-color: yellow">
-					<col style="background-color:rgb(0, 255, 72)">
-					<col style="background-color:rgb(0, 119, 255)">
-				  </colgroup>
-				<tr>
-				  	<th>Column1</th>
-				  	<th>Column2</th>
-					<th>Column3</th>
-				</tr>
-				<tr>
-				  	<td>a</td>
-				  	<td>b</td>
-					<td>c</td>
-				</tr>
-				<tr>
-					<td>d</td>
-					<td>e</td>
-					<td>f</td>
-				</tr>
-			</table>
+				const form = document.getElementById('forms');
+				const nameInput = document.getElementById('name');
+				const emailInput = document.getElementById('email');
+				const commentInput = document.getElementById('comments');
+				const errorMsg = document.getElementById('error-message-if-any');
+				let form_errors = [];
 
-			<p>And a random circle</p>
-			<svg width="50" height="50">
-				<circle cx="25" cy="25" r="20" stroke="blue" stroke-width="4" fill="cyan" />
-			</svg>
+				nameInput.addEventListener("input", (event) => {
+					if(nameInput.validity.valueMissing) {
+						nameInput.setCustomValidity("Missing name input");
+						form_errors.push("Missing name input");
+					} else {
+						nameInput.setCustomValidity("");
+					}
+					nameInput.reportValidity();
+				});
 
-			<p>And a preview of UCSD website</p>
-			<iframe src="https://ucsd.edu" title="UCSD website"></iframe>
+				emailInput.addEventListener("input", (event) => {
+					if(emailInput.validity.valueMissing) {
+						emailInput.setCustomValidity("Missing email input");
+						form_errors.push("Missing email input");
+					} else if(emailInput.validity.typeMismatch) {
+						emailInput.setCustomValidity("Input is not an email");
+						form_errors.push("Input is not an email");
+					} else {
+						emailInput.setCustomValidity("");
+						errorMsg.textContent = "";
+					}
+					emailInput.reportValidity();
+				});
 
-			<p>And a video of UCSD</p>
-			<video controls height="393" width="700">
-				<source src="videos/videoplayback.mp4" type="video/mp4" />
-				Your browser does not support the video tag.
-			</video>
+				commentInput.addEventListener("input", (event) => {
+					const RegExp = /^[a-zA-Z0-9 ,.?!]*$/;
+					if(commentInput.validity.valueMissing) {
+						commentInput.setCustomValidity("Missing comment input");
+						form_errors.push("Missing comment input");
+					} else if(commentInput.validity.tooLong) {
+						commentInput.setCustomValidity("Comment too long");
+						form_errors.push("Comment too long");
+					} else if(!RegExp.test(commentInput.value)) {
+						commentInput.setCustomValidity("Input contains non-typical characters");
+						form_errors.push("Input contains non-typical characters");
+						errorMsg.textContent = "Input contains non-typical characters";
+						commentInput.classList.add("flash");
+						errorMsg.classList.add("fadeOut");
+						setTimeout(function() {
+							commentInput.classList.remove("flash");
+							errorMsg.classList.remove("fadeOut");
+							errorMsg.textContent = "";
+						}, 2000); 
+					} else {
+						commentInput.setCustomValidity("");
+					}
+					commentInput.reportValidity();
+				});
+
+				form.addEventListener("submit", (event) => {
+					if (!email.validity.valid) {
+						event.preventDefault();
+					}
+					let errorJSON = JSON.stringify(form_errors);
+					document.getElementById('form_errors').setAttribute('value', errorJSON);
+				});
+			</script>
+
+			<button id="toggle"">Change Theme</button>
+
+			<script type="module">
+				if(localStorage.getItem("toggled") == null) {
+					var toggled = false;
+				} else if(localStorage.getItem("toggled") == "true") {
+					var toggled = true
+				} else {
+					var toggled = false;
+				}
+
+				let tButton = document.getElementById('toggle');
+				tButton.addEventListener('click', (event) => {
+					toggled = !toggled;
+					if(toggled) {
+						document.getElementById('main').classList.add("darkTheme");
+						localStorage.setItem("toggled", "true");
+					} else {
+						document.getElementById('main').classList.remove("darkTheme");
+						localStorage.setItem("toggled", "false");
+					}
+				});
+
+			</script>
 
 		</section>
 	</main>
@@ -221,6 +305,10 @@ int main() {
 		<hr/>
 		<p>💯This page was made with &hearts; by Mingyang Chen 💯</p>
 	</footer>
+
+	<noscript id="no_script">
+		<p>JavaScript is disabled!</p>
+	</noscript>
 </body>
 
 </html>

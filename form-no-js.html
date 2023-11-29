@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="description" content="Webpage for CSE134 HW 3" />
+	<meta name="author" content="Mingyang Chen" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="styles/main.css" media="screen">
+	<title>form-no-js</title>
+</head>
+
+<body>
+    <form action="https://httpbin.org/post" method="post" id="forms">
+        <fieldset>
+            <legend>Contact Form</legend>
+            <div class="parent">
+                <div class="div1">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" required/>
+                </div>
+
+                <div class="div2">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" required/>
+                </div>
+
+                <input type="hidden" name="possible_bot" id="possible_bot" value="true"/>
+
+                <div class="div3">
+                    <label for="comments">Comments:</label>
+                    <input type="text" name="comments" id="comments" required maxlength="100" 
+                        pattern="[a-zA-Z0-9 ,.?!]*" style="width: 15rem; height: 5rem;"/>
+                </div>
+
+                <div class="div4">
+                    <output name="error-message-if-any">error-message-if-any</output>
+                    <output name="info-message-if-any">info-message-if-any</output>
+                    <br/>
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+
+
+</body>
